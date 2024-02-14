@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require("mongoose")
 const config = require("./config/db");
-
+var http = require('http')
 
 
 // Mongo DB URL
@@ -26,17 +26,17 @@ var indexRouter = require('./routes/index');
 // var usersRouter = require('./routes/users');
 var app = express();
 
-
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+var server = http.createServer(app);
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
 app.use('/', indexRouter);
 // app.use('/users', usersRouter);
@@ -57,4 +57,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+server.listen(3000, () => {
+  console.log("Well done, now I am listening on ", 3000);
+});
 module.exports = app;
