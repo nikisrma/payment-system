@@ -17,4 +17,8 @@ router.get('/blogs', function(req, res, next) {
   res.render('pages/blogs/list');
 });
 
+router.get('/detail', function(req, res, next) {
+  res.render('pages/blogs/detail');
+});
+
 module.exports = router;
